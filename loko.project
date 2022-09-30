@@ -1,0 +1,101 @@
+{
+  "name": "recommender",
+  "id": "recommender",
+  "description": "",
+  "created_on": "30/09/2022, 08:59:01",
+  "last_modify": "30/09/2022, 08:59:31",
+  "graphs": {
+    "main": {
+      "nodes": [
+        {
+          "id": "6ce6c607-db88-4926-8314-d93aaa9bae0d",
+          "position": {
+            "x": 564,
+            "y": 238.5
+          },
+          "type": "custom",
+          "dragHandle": "#nodeHandle",
+          "sourcePosition": "right",
+          "targetPosition": "left",
+          "width": 150,
+          "height": 56,
+          "selected": null,
+          "dragging": null,
+          "data": {
+            "name": "rec_sys",
+            "events": null,
+            "description": "",
+            "inputs": [
+              {
+                "id": "input",
+                "label": "input",
+                "service": "",
+                "to": "output"
+              },
+              {
+                "id": "file_input",
+                "label": "file_input",
+                "service": "files",
+                "to": "file_output"
+              }
+            ],
+            "outputs": [
+              {
+                "id": "output",
+                "label": "output"
+              },
+              {
+                "id": "file_output",
+                "label": "file_output"
+              }
+            ],
+            "configured": true,
+            "options": {
+              "group": "Custom",
+              "args": [
+                {
+                  "name": "comment",
+                  "type": "area",
+                  "label": "Node comment",
+                  "helper": "Use it to explain the usage of this node"
+                },
+                {
+                  "name": "alias",
+                  "type": "text",
+                  "label": "Name",
+                  "helper": "Use this name as an alias"
+                },
+                {
+                  "name": "debug",
+                  "type": "boolean",
+                  "label": "Debug to Console",
+                  "divider": true
+                },
+                {
+                  "name": "param_example",
+                  "type": "text",
+                  "label": "Param Example",
+                  "helper": "just an example"
+                }
+              ],
+              "click": null,
+              "icon": null,
+              "values": {}
+            }
+          },
+          "selectable": true,
+          "draggable": true,
+          "__class__": "Node"
+        }
+      ],
+      "edges": [],
+      "__class__": "Graph"
+    }
+  },
+  "open": [
+    "main"
+  ],
+  "active": "main",
+  "version": "1.0.0",
+  "__class__": "Project"
+}
