@@ -3,55 +3,45 @@
   "id": "recommender",
   "description": "",
   "created_on": "30/09/2022, 08:59:01",
-  "last_modify": "30/09/2022, 08:59:31",
+  "last_modify": "30/09/2022, 16:16:05",
   "graphs": {
     "main": {
       "nodes": [
         {
-          "id": "6ce6c607-db88-4926-8314-d93aaa9bae0d",
+          "id": "4f0d94ed-6bbd-47ec-832a-08b8c131dae7",
           "position": {
-            "x": 564,
-            "y": 238.5
+            "x": 825.1068287416258,
+            "y": 255.97595117622961
           },
           "type": "custom",
           "dragHandle": "#nodeHandle",
           "sourcePosition": "right",
           "targetPosition": "left",
-          "width": 150,
+          "width": 214,
           "height": 56,
-          "selected": null,
-          "dragging": null,
+          "selected": false,
+          "dragging": false,
           "data": {
-            "name": "rec_sys",
+            "name": "My First Component",
             "events": null,
             "description": "",
             "inputs": [
               {
                 "id": "input",
-                "label": "input",
-                "service": "",
-                "to": "output"
-              },
-              {
-                "id": "file_input",
-                "label": "file_input",
-                "service": "files",
-                "to": "file_output"
+                "label": "Input",
+                "service": "collections",
+                "to": "idoutput"
               }
             ],
             "outputs": [
               {
-                "id": "output",
-                "label": "output"
-              },
-              {
-                "id": "file_output",
-                "label": "file_output"
+                "id": "idoutput",
+                "label": "Output"
               }
             ],
             "configured": true,
             "options": {
-              "group": "Custom",
+              "group": null,
               "args": [
                 {
                   "name": "comment",
@@ -72,23 +62,150 @@
                   "divider": true
                 },
                 {
-                  "name": "param_example",
+                  "name": "model_name",
                   "type": "text",
-                  "label": "Param Example",
-                  "helper": "just an example"
+                  "label": "Model Name",
+                  "helper": "Helper text",
+                  "group": "",
+                  "value": null,
+                  "description": ""
+                },
+                {
+                  "name": "train",
+                  "type": "boolean",
+                  "label": "Train Model",
+                  "helper": "",
+                  "group": "",
+                  "value": null,
+                  "description": "Helper text"
                 }
               ],
               "click": null,
               "icon": null,
-              "values": {}
+              "values": {
+                "debug": true
+              }
+            },
+            "locked": null
+          },
+          "selectable": true,
+          "draggable": true,
+          "positionAbsolute": {
+            "x": 825.1068287416258,
+            "y": 255.97595117622961
+          },
+          "__class__": "Node"
+        },
+        {
+          "id": "f3296203-837f-4231-98ce-5f088cdf61ba",
+          "position": {
+            "x": 466.68733067114744,
+            "y": 236.81611953826825
+          },
+          "type": "custom",
+          "dragHandle": "#nodeHandle",
+          "sourcePosition": "right",
+          "targetPosition": "left",
+          "width": 150,
+          "height": 88,
+          "selected": false,
+          "dragging": false,
+          "data": {
+            "name": "Trigger",
+            "events": null,
+            "description": "### Description\nThe TRIGGER component is used to start streams.\n\n### Output\nThe parameter Type can be set as a **String** or an **Object**. The parameter Value, on the other hand, defines the actual output of the component.",
+            "inputs": [],
+            "outputs": [
+              {
+                "id": "output",
+                "label": "output"
+              }
+            ],
+            "configured": true,
+            "options": {
+              "group": "Common",
+              "args": [
+                {
+                  "name": "comment",
+                  "type": "area",
+                  "label": "Node comment",
+                  "helper": "Use it to explain the usage of this node"
+                },
+                {
+                  "name": "alias",
+                  "type": "text",
+                  "label": "Name",
+                  "helper": "Use this name as an alias"
+                },
+                {
+                  "name": "debug",
+                  "type": "boolean",
+                  "label": "Debug to Console",
+                  "divider": true
+                },
+                {
+                  "name": "type",
+                  "type": "select",
+                  "description": "The type of data",
+                  "label": "Type",
+                  "validation": {
+                    "required": "Required field"
+                  },
+                  "fragment": null,
+                  "advanced": false,
+                  "options": [
+                    "String",
+                    "Object"
+                  ],
+                  "value": null
+                },
+                {
+                  "name": "value",
+                  "type": "dynamic",
+                  "dynamicType": {
+                    "String": "area",
+                    "Object": "code"
+                  },
+                  "parent": "type",
+                  "label": "Value",
+                  "validation": {
+                    "required": "Required field"
+                  }
+                }
+              ],
+              "click": "Send message",
+              "icon": "RiPlayFill",
+              "values": {
+                "type": "String",
+                "value": "Hello world!"
+              }
             }
           },
           "selectable": true,
           "draggable": true,
+          "positionAbsolute": {
+            "x": 466.68733067114744,
+            "y": 236.81611953826825
+          },
           "__class__": "Node"
         }
       ],
-      "edges": [],
+      "edges": [
+        {
+          "id": "reactflow__edge-f3296203-837f-4231-98ce-5f088cdf61baoutput-4f0d94ed-6bbd-47ec-832a-08b8c131dae7input",
+          "source": "f3296203-837f-4231-98ce-5f088cdf61ba",
+          "sourceHandle": "output",
+          "target": "4f0d94ed-6bbd-47ec-832a-08b8c131dae7",
+          "targetHandle": "input",
+          "data": {
+            "startColor": "#D770AD",
+            "stopColor": "#888"
+          },
+          "selected": false,
+          "dragging": false,
+          "__class__": "Edge"
+        }
+      ],
       "__class__": "Graph"
     }
   },

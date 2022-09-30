@@ -21,7 +21,7 @@ tags_metadata = [
 
 app = FastAPI(
     title="FAIRE Search Tool",
-    version="0.0.1",
+    version=VERSION,
     description="",
     openapi_tags=tags_metadata,
 )

@@ -1,0 +1,11 @@
+{"side_containers": {
+  "mongo": {
+    "image": "mongo",
+    "expose":[
+        27017
+    ],
+    "volumes":[
+        "/Users/camilagarcia/loko/projects/recommender/volumes/mongo/db:/data/db"
+    ]
+  }}
+}

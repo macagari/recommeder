@@ -1,1 +1,47 @@
-[{"name": "rec_sys", "events": null, "group": "Custom", "description": "", "inputs": [{"id": "input", "label": "input", "service": "", "to": "output"}, {"id": "file_input", "label": "file_input", "service": "files", "to": "file_output"}], "outputs": [{"id": "output", "label": "output"}, {"id": "file_output", "label": "file_output"}], "configured": true, "options": {"group": "Custom", "args": [{"name": "param_example", "type": "text", "label": "Param Example", "helper": "just an example"}], "click": null, "icon": "RiTyphoonFill", "values": {}}, "disabled": false}]
+[
+ {
+  "name": "My First Component",
+  "description": "",
+  "configured": true,
+  "inputs": [
+   {
+    "id": "input",
+    "label": "Input",
+    "service": "collections",
+    "to": "idoutput"
+   }
+  ],
+  "outputs": [
+   {
+    "id": "idoutput",
+    "label": "Output"
+   }
+  ],
+  "options": {
+   "group": "Custom",
+   "icon": "RiTyphoonFill",
+   "click": null,
+   "values": {},
+   "args": [
+    {
+     "name": "model_name",
+     "type": "text",
+     "label": "Model Name",
+     "helper": "Helper text",
+     "group": "",
+     "value": null,
+     "description": ""
+    },
+    {
+     "name": "train",
+     "type": "boolean",
+     "label": "Train Model",
+     "helper": "",
+     "group": "",
+     "value": null,
+     "description": "Helper text"
+    }
+   ]
+  }
+ }
+]

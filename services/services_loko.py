@@ -23,16 +23,18 @@ from recommenders.hybrid_recommender import HybridRecommender
 from utils.annoy import find_k_nn
 from utils.chunk import chunked
 from utils.create_update_agg import update_collection
+from utils.logger_utils import stream_logger
 from utils.zip import get_zip_files
 import datetime
 from fastapi import BackgroundTasks, FastAPI
 import logging
 
-logger = logging.getLogger()
-
+#logger = logging.getLogger()
+logger = stream_logger(__name__)
 
 @app.post("/collections", tags=['Collection CRUD'])
-async def get_collections(Example_body):
+async def get_collections(example_body:Dict):
+    logger.debug(example_body)
     return ResponseListCollections(collection_list=[
         CollectionResponse(
             collection_name=collection.collection_name,

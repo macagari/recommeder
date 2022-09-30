@@ -1,4 +1,8 @@
 .*
+docker-compose.override.yml
+docker-compose.yml
+volumes
+torch_models
 venv
 .venv
 .env
