@@ -28,7 +28,7 @@ Once a collection of image is created, it requires an image as input and find si
 
 ![Image Similarity results](images/resuls_similarity.png)
 
-** ⁂ Recommender **
+**⁂ Recommender**
 
 This block links sales data to a specific collection of images. So it accepts a csv file in input to create a recommender
 system based on sales data. It provides a list of users and a list of suggested item for each specified user. Sales records about
@@ -64,8 +64,6 @@ sales of a specific collection.
 
 
 
-## Data 
-
 
 
 
@@ -78,9 +76,9 @@ sales of a specific collection.
 ```shell
 virtualenv -p `which python3.9` venv && source venv/bin/activate
 ```
-5) Install requirements using `pip-sync` from `pip-tools`:
+5) Install requirements using `pip`:
 ```shell
-pip install pip-tools && pip-sync requirements.txt
+pip install requirements.txt
 ```
 
 ## Running
@@ -94,32 +92,11 @@ docker-compose up
 ```
 2) Go to http://0.0.0.0/docs to check the swagger _(if you are on Windows go to http://localhost/docs)
 
+## Results integrated 
 
-## Versioning
+![Similarity_Results1](images/results1.png)
+![Similarity_Results2](images/result2.png)
 
-We use [BumpVersion](https://github.com/c4urself/bump2version) to increment the
-[semantic version](https://semver.org/) of this app. It is pre-configured to increment
-the version used in the `ppom.json` file, create a commit and tag it with the version
-number. It is your responsibility to update the version used by the various environments
-in their specific docker-compose file. Examples:
 
-```shell
-bumpversion patch  # update patch version e.g. 0.1.3 -> 0.1.4
-bumpversion minor  # update minor version e.g. 0.1.3 -> 0.2.0
-bumpversion major  # update major version e.g. 0.1.3 -> 1.0.0
-```
 
-## Dependencies
 
-> _use `requirements.txt` to install requirements in development (i.e.
-> developer's machine) 
-
-### Adding New Dependencies
-
-Add the new dependencies to `requirements.txt`  and run
-the following command:
-
-```shell
-pip-compile requirements.text 
-pip-sync requirements.txt
-```
