@@ -3,9 +3,11 @@
 # IMAGE SIMILARITY ENGINE AND RECOMMENDER ✿
 
 
-The project provides the following functionalities: 
+### Project functionalities
+
  
-✿ CRUDS to handles images transformation in embedding vectors
+✿ CRUDS to handles images transformation in embedding vectors (ResNet, VGG-16 , InceptionV3, Xception
+EfficientNet,BiT)
 
 ✿ Search similar images to a given images in input
 
@@ -15,19 +17,28 @@ The project provides the following functionalities:
 
 ### Custom extensions in loko
 
-⁂ CRUD collections: 
+**⁂ CRUD collections:** 
 
 The block allows to create, delete, retrieve and update a collection of images.
 
-⁂ Images Search:
+**⁂ Images Search:**
 
 Once a collection of image is created, it requires an image as input and find similar images in a specific collection. 
 
-⁂ Recommender
+
+![Image Similarity results](images/resuls_similarity.png)
+
+** ⁂ Recommender **
 
 This block links sales data to a specific collection of images. So it accepts a csv file in input to create a recommender
 system based on sales data. It provides a list of users and a list of suggested item for each specified user. Sales records about
 a specific collection can be deleted.
+
+![Sys Rec](images/sysrec1.png)
+
+![Sys Rec](images/sysrec2.png)
+
+
 Column names in the csv to be accepted by the system:
 
 ⚘ **md5email** - user ID 
@@ -41,6 +52,20 @@ Column names in the csv to be accepted by the system:
 ⚘ **country**
 
 ⚘ **created_at** order date and time
+
+### Other aspects of the system:
+The system supports a cache with results for users for whom a list of
+suggestions, calculated by the system. This allows you to quickly get results and be able to train
+a recommendation system whenever data is available. In our case the
+system is not incremental because the per-user evaluation depends on both new sales data and
+of the new ones, if the name of the collection is in common.
+The referral system recalculates cache hints every time there is a data update
+sales of a specific collection.
+
+
+
+## Data 
+
 
 
 
