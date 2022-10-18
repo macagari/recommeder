@@ -147,7 +147,8 @@ recommender = Component(name="Recommender",
                         args=[collection_name_, months_training, min_item_allowed, user_id, max_items_],
                         inputs=[create_rec, delete_rec, available_users, recommend],
                         outputs=[create_rec_, delete_rec_, available_users_, recommend_],
-                        configured=False)
+                        configured=False,
+                        trigger=True)
 
 #########################################################
 
