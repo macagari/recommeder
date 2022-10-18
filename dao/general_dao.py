@@ -11,12 +11,14 @@ from typing import List, Optional
 from dateutil.relativedelta import relativedelta
 import numpy as np
 
+from utils.logger_utils import stream_logger
 
+logger = stream_logger(__name__)
 class Dao:
-    def __init__(self, collection_name='luisa_spagnoli'):
+    def __init__(self, collection_name):
         self.dict_users_items = orders_to_bidict(collection_name=collection_name)
         self.collection_name = collection_name
-        #print(self.dict_users_items)
+        print(self.dict_users_items)
 
     def id2user(self,
                 idx: int):
@@ -45,6 +47,7 @@ class Dao:
             raise HTTPException(status_code=415, detail='Orders for that collection do not exist!')
 
         df = pd.DataFrame([i.to_mongo().to_dict() for i in orders])
+        logger.debug(df.head())
         df = df.rename(columns={
             "md5email": "users",
             "sku": "items",

@@ -17,12 +17,20 @@ def update_collection(bytes_data: list[tuple[ZipInfo, IO[bytes]]], collection: C
     for zip_info, file_bytes in bytes_data:
         # check for duplicate SKUs (a SKU is just the filename without extension)
         _sku = SKU(Path(zip_info.filename).stem)  # remove extension and file path
-        if _sku in skus or _sku in collection.idx_sku_bidict.inverse.keys():
+        if _sku in skus:
             results.append(CreateCollectionLoadImageResult(
                 file_name=zip_info.filename,
                 sku=_sku,
                 success=False,
-                message=f"Duplicate SKU found! Conflict with: '{skus[_sku]}'.",
+                message=f"Duplicate SKU found in files! Conflict with: '{skus[_sku]}'.",
+            ))
+            continue
+        elif _sku in collection.idx_sku_bidict.inverse.keys():
+            results.append(CreateCollectionLoadImageResult(
+                file_name=zip_info.filename,
+                sku=_sku,
+                success=False,
+                message=f"Duplicate SKU found in db: '{_sku}'.",
             ))
             continue
         else:

@@ -59,3 +59,6 @@ class UserRecommendation(BaseModel):
 class AvailableUsers(BaseModel):
     collection_name: str
     users: list[str]
+
+class DeleteResponse(BaseModel):
+    msg: str

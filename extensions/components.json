@@ -1,45 +1,244 @@
 [
  {
-  "name": "My First Component",
+  "name": "CRUD collections",
   "description": "",
+  "group": "Custom",
+  "icon": "RiCheckboxBlankCircleFill",
+  "click": null,
   "configured": true,
   "inputs": [
    {
-    "id": "input",
-    "label": "Input",
+    "id": "get_collections",
+    "label": "Get Collections",
     "service": "collections",
-    "to": "idoutput"
+    "to": "get_collections"
+   },
+   {
+    "id": "create_collection",
+    "label": "Create Collection",
+    "service": "create_collection",
+    "to": "create_collection"
+   },
+   {
+    "id": "update_collection",
+    "label": "Update Collection",
+    "service": "update_collection",
+    "to": "update_collection"
+   },
+   {
+    "id": "delete_collection",
+    "label": "Delete Collection",
+    "service": "delete_collection",
+    "to": "delete_collection"
    }
   ],
   "outputs": [
    {
-    "id": "idoutput",
-    "label": "Output"
+    "id": "get_collections",
+    "label": "Get Collections"
+   },
+   {
+    "id": "create_collection",
+    "label": "Create Collection"
+   },
+   {
+    "id": "update_collection",
+    "label": "Update Collection"
+   },
+   {
+    "id": "delete_collection",
+    "label": "Delete Collection"
    }
   ],
   "options": {
-   "group": "Custom",
-   "icon": "RiTyphoonFill",
-   "click": null,
    "values": {},
    "args": [
     {
-     "name": "model_name",
+     "name": "new_collection_name",
      "type": "text",
-     "label": "Model Name",
+     "label": "New Images Collection Name",
+     "helper": "Helper text",
+     "group": "Create Images Collection",
+     "value": null,
+     "description": "",
+     "validation": null
+    },
+    {
+     "name": "collection_name",
+     "type": "asyncSelect",
+     "label": "Images Collection Name",
+     "helper": "Helper text",
+     "group": "Select Collection",
+     "value": null,
+     "description": "",
+     "validation": null,
+     "url": "http://localhost:9999/routes/recommender/collections_"
+    }
+   ]
+  }
+ },
+ {
+  "name": "Images Search",
+  "description": "",
+  "group": "Custom",
+  "icon": "RiCheckboxBlankCircleFill",
+  "click": null,
+  "configured": false,
+  "inputs": [
+   {
+    "id": "input",
+    "label": "Search",
+    "service": "find_similar_images",
+    "to": "item_collection"
+   }
+  ],
+  "outputs": [
+   {
+    "id": "item_collection",
+    "label": "Search"
+   }
+  ],
+  "options": {
+   "values": {
+    "max_items": 2
+   },
+   "args": [
+    {
+     "name": "collection_name",
+     "type": "asyncSelect",
+     "label": "Images Collection Name",
+     "helper": "Helper text",
+     "group": "Select Collection",
+     "value": null,
+     "description": "",
+     "validation": null,
+     "url": "http://localhost:9999/routes/recommender/collections_"
+    },
+    {
+     "name": "max_items",
+     "type": "text",
+     "label": "max_items",
+     "helper": "Maximum similar items to return",
+     "group": "",
+     "value": 2,
+     "description": "",
+     "validation": {
+      "required": "Required field"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "name": "Recommender",
+  "description": "",
+  "group": "Custom",
+  "icon": "RiCheckboxBlankCircleFill",
+  "click": null,
+  "configured": false,
+  "inputs": [
+   {
+    "id": "input_create_rec",
+    "label": "Create",
+    "service": "recsys/orders",
+    "to": "output_create_rec"
+   },
+   {
+    "id": "delete_rec",
+    "label": "Delete",
+    "service": "delete/orders",
+    "to": "output_create_rec"
+   },
+   {
+    "id": "available_users",
+    "label": "Users",
+    "service": "recsys/get_user_id",
+    "to": "available_users_"
+   },
+   {
+    "id": "recommend",
+    "label": "Recommend",
+    "service": "recsys/recommend",
+    "to": "recommend_"
+   }
+  ],
+  "outputs": [
+   {
+    "id": "output_create_rec",
+    "label": "Create"
+   },
+   {
+    "id": "delete_rec",
+    "label": "Delete"
+   },
+   {
+    "id": "available_users_",
+    "label": "Users"
+   },
+   {
+    "id": "recommend_",
+    "label": "Recommend"
+   }
+  ],
+  "options": {
+   "values": {
+    "months_training": 5,
+    "min_item_allowed": 2,
+    "max_items_": 5
+   },
+   "args": [
+    {
+     "name": "collection_name_",
+     "type": "asyncSelect",
+     "label": "Images Collection Name",
      "helper": "Helper text",
      "group": "",
      "value": null,
-     "description": ""
+     "description": "",
+     "validation": null,
+     "url": "http://localhost:9999/routes/recommender/collections_"
     },
     {
-     "name": "train",
-     "type": "boolean",
-     "label": "Train Model",
-     "helper": "",
-     "group": "",
+     "name": "months_training",
+     "type": "text",
+     "label": "Months Training",
+     "helper": "Number of months to use for training",
+     "group": "Create Recommender",
+     "value": 5,
+     "description": "",
+     "validation": null
+    },
+    {
+     "name": "min_item_allowed",
+     "type": "text",
+     "label": "Minimum Item ",
+     "helper": "The minimum number of items acceptable to create the recommender",
+     "group": "Create Recommender",
+     "value": 2,
+     "description": "",
+     "validation": null
+    },
+    {
+     "name": "user_id",
+     "type": "text",
+     "label": "User ID",
+     "helper": "Number of months to use for training",
+     "group": "Recommend",
      "value": null,
-     "description": "Helper text"
+     "description": "",
+     "validation": null
+    },
+    {
+     "name": "max_items_",
+     "type": "text",
+     "label": "max items",
+     "helper": "Maximum similar items to return",
+     "group": "Recommend",
+     "value": 5,
+     "description": "",
+     "validation": {
+      "required": "Required field"
+     }
     }
    ]
   }

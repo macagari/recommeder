@@ -10,11 +10,11 @@ RUN pip install --no-cache-dir --upgrade gdown && \
     rm faire_data.zip
 RUN mkdir -p /root/.cache/torch/hub/checkpoints
 RUN cd /root/.cache/torch/hub/checkpoints
-RUN wget https://download.pytorch.org/models/alexnet-owt-7be5be79.pth
-RUN wget https://download.pytorch.org/models/googlenet-1378be20.pth
-RUN wget https://download.pytorch.org/models/inception_v3_google-0cc3c7bd.pth
-RUN wget https://download.pytorch.org/models/resnet18-f37072fd.pth
-RUN  wget https://download.pytorch.org/models/vgg16-397923af.pth
+#RUN wget https://download.pytorch.org/models/alexnet-owt-7be5be79.pth
+#RUN wget https://download.pytorch.org/models/googlenet-1378be20.pth
+#RUN wget https://download.pytorch.org/models/inception_v3_google-0cc3c7bd.pth
+#RUN wget https://download.pytorch.org/models/resnet18-f37072fd.pth
+#RUN  wget https://download.pytorch.org/models/vgg16-397923af.pth
 RUN  wget https://download.pytorch.org/models/efficientnet_b1_rwightman-533bc792.pth
 ADD ./requirements.txt /
 RUN pip install -r /requirements.txt

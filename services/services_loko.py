@@ -1,5 +1,6 @@
 import codecs
 import csv
+import json
 import zipfile
 from io import BytesIO
 from pathlib import Path
@@ -18,7 +19,7 @@ from models.collection import Collection
 from models.mongo import CollectionMongo, Orders, RecommendationCache
 from models.responses import CheckSimilarityResponse, CollectionResponse, \
     CreateCollectionLoadImageResult, CreateCollectionResponse, ResponseListCollections, CreateOrdersFile, \
-    UserRecommendation, AvailableUsers, SimilarityResponseFromSKU
+    UserRecommendation, AvailableUsers, SimilarityResponseFromSKU, DeleteResponse
 from recommenders.hybrid_recommender import HybridRecommender
 from utils.annoy import find_k_nn
 from utils.chunk import chunked
@@ -29,11 +30,19 @@ import datetime
 from fastapi import BackgroundTasks, FastAPI
 import logging
 
-#logger = logging.getLogger()
+# logger = logging.getLogger()
 logger = stream_logger(__name__)
 
+
+@app.get("/collections_", tags=['Collection CRUD'])
+async def get_collections():
+    return [collection.collection_name
+            for collection in CollectionMongo.objects
+            ]
+
+
 @app.post("/collections", tags=['Collection CRUD'])
-async def get_collections(example_body:Dict):
+async def get_collections(example_body: Dict):
     logger.debug(example_body)
     return ResponseListCollections(collection_list=[
         CollectionResponse(
@@ -46,13 +55,17 @@ async def get_collections(example_body:Dict):
     ])
 
 
-@app.post("/collections/{collection_name}", tags=['Collection CRUD'], response_model=CreateCollectionResponse)
+@app.post("/create_collection", tags=['Collection CRUD'], response_model=CreateCollectionResponse)
 async def create_collection(
-        collection_name: str,
-        zip_file: UploadFile = File(...),
-        model_name: ModelName = ModelName.EFFICIENTNET_B1,
-        metric_name: MetricName = MetricName.EUCLIDEAN,
+        file: UploadFile = File(...),
+        args: UploadFile = File(...),
 ):
+    model_name = ModelName.EFFICIENTNET_B1
+    metric_name = MetricName.EUCLIDEAN
+
+    args = json.loads((await args.read()).decode())
+    collection_name = args.get("new_collection_name")
+    logger.debug(collection_name)
     # check if the collection exists
     try:
         _: CollectionMongo = CollectionMongo.objects.get(collection_name=collection_name)
@@ -70,7 +83,7 @@ async def create_collection(
 
     try:
         # handle images processing in batch
-        _zip_archive_bytes = BytesIO(await zip_file.read())
+        _zip_archive_bytes = BytesIO(await file.read())
         max_size_batch = 10  # batch  to update the database
         results: list[CreateCollectionLoadImageResult] = []
 
@@ -86,7 +99,7 @@ async def create_collection(
     # RETURN RESULTS
     # --------------------------------------------------
     return CreateCollectionResponse(
-        file_name=zip_file.filename,
+        file_name=file.filename,
         total_success=sum(1 for r in results if r.success),
         total_error=sum(1 for r in results if not r.success),
         errors=[r for r in results if not r.success],
@@ -96,11 +109,15 @@ async def create_collection(
     )
 
 
-@app.put("/collections/{collection_name}", tags=['Collection CRUD'], response_model=CreateCollectionResponse)
+@app.post("/update_collection", tags=['Collection CRUD'], response_model=CreateCollectionResponse)
 async def update(
-        collection_name: str,
-        zip_file: UploadFile = File(...),
+        file: UploadFile = File(...),
+        args: UploadFile = File(...),
 ):
+    args = json.loads((await args.read()).decode())
+    collection_name = args.get("collection_name")
+    logger.debug(collection_name)
+
     try:
         previous_collection_mongo: CollectionMongo = CollectionMongo.objects.get(collection_name=collection_name)
     except DoesNotExist as e:
@@ -110,7 +127,7 @@ async def update(
 
     try:
         # handle images processing in batch
-        _zip_archive_bytes = BytesIO(await zip_file.read())
+        _zip_archive_bytes = BytesIO(await file.read())
         max_size_batch = 10
         results: list[CreateCollectionLoadImageResult] = []
 
@@ -126,7 +143,7 @@ async def update(
     # RETURN RESULTS
     # --------------------------------------------------
     return CreateCollectionResponse(
-        file_name=zip_file.filename,
+        file_name=file.filename,
         total_success=sum(1 for r in results if r.success),
         total_error=sum(1 for r in results if not r.success),
         errors=[r for r in results if not r.success],
@@ -136,11 +153,14 @@ async def update(
     )
 
 
-@app.delete("/collections/{collection_name}", tags=['Collection CRUD'], status_code=204)  # HTTP 204: no content
-async def delete_collection(collection_name: str):
+@app.post("/delete_collection", tags=['Collection CRUD'], response_model=DeleteResponse)  # HTTP 204: no content
+async def delete_collection(args: Dict):
     # --------------------------------------------------
     # LOAD SEASON
     # --------------------------------------------------
+
+    collection_name = args.get("args").get("collection_name")
+    logger.debug(collection_name)
     try:
         collection_mongo: CollectionMongo = CollectionMongo.objects.get(collection_name=collection_name)
     except DoesNotExist:
@@ -152,32 +172,39 @@ async def delete_collection(collection_name: str):
     collection_mongo.embedding_file.delete()
     collection_mongo.annoy_index_file.delete()
     collection_mongo.delete()
-    return f'{collection_name} collection removed!'
+    logger.debug("fine")
+    return DeleteResponse(msg=f'{collection_name} collection removed!')
 
 
-@app.post("/collections/{collection_name}/similar", tags=["Search"], response_model=CheckSimilarityResponse)
+@app.post("/find_similar_images", tags=["Search"], response_model=CheckSimilarityResponse)
 async def find_similar_images(
-        collection_name: str,
-        image_file: UploadFile = File(...),
-        max_items: int = 10,
+        file: UploadFile = File(...),
+        args: UploadFile = File(...),
 ):
-    # --------------------------------------------------
-    # LOAD IMAGE
-    # --------------------------------------------------
-    try:
-        image = Image.open(BytesIO(await image_file.read()))
-    except UnidentifiedImageError:
-        raise HTTPException(status_code=415, detail="File must be an image!")
-
     # --------------------------------------------------
     # LOAD SEASON
     # --------------------------------------------------
+    args = json.loads((await args.read()).decode())
+    collection_name = args.get("collection_name")
+    logger.debug(collection_name)
+    max_items = int(args.get("max_items"))
+
+    logger.debug(collection_name)
+    # logger.debug((await file.read()).decode())
     try:
         _collection_mongo: CollectionMongo = CollectionMongo.objects.get(collection_name=collection_name)
     except DoesNotExist:
         raise HTTPException(status_code=422, detail="Collection does not exist!")
     else:
         collection = Collection.load(_collection_mongo)
+
+    # --------------------------------------------------
+    # LOAD IMAGE
+    # --------------------------------------------------
+    try:
+        image = Image.open(BytesIO(await file.read()))
+    except UnidentifiedImageError:
+        raise HTTPException(status_code=415, detail="File must be an image!")
 
     # --------------------------------------------------
     # FIND K NEAREST NEIGHBORS
@@ -191,13 +218,15 @@ async def find_similar_images(
         annoy_index=collection.annoy_index,
     )
 
+    logger.debug(f'ids ---> {ids}')
     # --------------------------------------------------
     # RETURN K SIMILAR SKUS
     # --------------------------------------------------
     return CheckSimilarityResponse(
-        file_name=image_file.filename,
+        file_name=file.filename,
         similar_skus=[collection.idx_sku_bidict[i] for i in ids],
     )
+
 
 @app.post("/collections/{collection_name}/similar/{sku}", tags=["Search"], response_model=SimilarityResponseFromSKU)
 async def find_similar_images_from_sku(
@@ -222,9 +251,10 @@ async def find_similar_images_from_sku(
 
         idx_ = collection.idx_sku_bidict.inverse[sku]
         return SimilarityResponseFromSKU(
-            sku= sku,
-            similar_skus=[collection.idx_sku_bidict[i+1] for i in collection.annoy_index.get_nns_by_item(idx_-1, max_items+1)[1:]]
-            )
+            sku=sku,
+            similar_skus=[collection.idx_sku_bidict[i + 1] for i in
+                          collection.annoy_index.get_nns_by_item(idx_ - 1, max_items + 1)[1:]]
+        )
 
 
 #############################REC SYSTEM #####################################
@@ -269,15 +299,17 @@ def update_cache(
         cache_rec.save()
 
 
-@app.post("/recsys/orders/{collection_name}", tags=["Recommender System"],
+@app.post("/recsys/orders", tags=["Recommender System"],
           response_model=CreateOrdersFile)  # HTTP 204: no content
 async def load_orders(
-        background_tasks: BackgroundTasks,
-        collection_name: str,
-        csv_sales: UploadFile = File(..., description="CSV file containing sales data."),
-        months_training: int = 5,
-        min_item_allowed: int = 2
+        file: UploadFile = File(...),
+        args: UploadFile = File(...),
 ):
+    logger.debug(f'________________>{file.filename}')
+    args = json.loads((await args.read()).decode())
+    collection_name = args.get("collection_name_")
+    months_training = int(args.get("months_training"))
+    min_item_allowed = int(args.get("min_item_allowed"))
     ###########################################################################
     # CHECK IF THE COLLECTION WITH IMAGES HAVE BEEN PREVIOUSLY CREATED
     ##########################################################################
@@ -285,7 +317,7 @@ async def load_orders(
         orders_ = Orders.objects(related_collection=collection_name)
         # print([i.idx_sku_dict for i in collection][0].values())
     except DoesNotExist:
-        logger.warning(f'the collection {collection_name} does not exist!')
+        logger.debug(f'the collection {collection_name} does not exist!')
         HTTPException(status_code=402, detail=f'{collection_name} does not exist!')
     #################################################################################
     # SET ERROR COUNTERS
@@ -298,12 +330,13 @@ async def load_orders(
     # INSERT DATASET FROM CSV INTO MONGO DB
     ############################################################################
     # TODO: add check to file csv
-
-    for row in csv.DictReader(codecs.iterdecode(csv_sales.file, 'utf-8')):
+    logger.debug(file.file)
+    for row in csv.DictReader(codecs.iterdecode(file.file, 'utf-8')):
+        logger.debug("---------_>", row)
         tot_orders += 1  # Track orders
         # CHECK THERE IS AT LEAST A VALID DATE
         if not re.search(r'[0-9]{4}-[0-9]{2}-[0-9]{2}', row['created_at']):
-            logger.warning(f'date can not be parsed {row["created_at"]=}')
+            logger.debug(f'date can not be parsed {row["created_at"]=}')
             parsed += 1
             continue
         # CHECK IF THE SKU BELONGS TO THE IMAGE COLLECTION AS WELL
@@ -327,11 +360,11 @@ async def load_orders(
             HTTPException(detail="""Check content in the file, 'created_at' 
                                   field could be not a correct data format""",
                           status_code=422)
-            logger.error(msg=f'mongo engine was not able to save the record: {row}')
+            logger.debug(msg=f'mongo engine was not able to save the record: {row}')
             errors_ += 1
     logger.info(msg=f'Total element without a regular date parsing YYYY-mm-dd{parsed}')
     logger.info(msg=f'Total errors given by MongoDB no admissible {errors_}')
-    logger.info(msg=f'Total sku without a corresponding image{images_excluded}')
+    logger.info(msg=f'Total sku without a corresponding image {images_excluded}')
     logger.info(msg=f'Total orders received {tot_orders}')
     ############################################################################
     # CACHE UPDATE WITH RECOMMENDATIONS
@@ -343,7 +376,7 @@ async def load_orders(
                  months_training=months_training,
                  min_item_allowed=min_item_allowed)
 
-    return CreateOrdersFile(file_name=csv_sales.filename,
+    return CreateOrdersFile(file_name=file.filename,
                             total_orders=tot_orders,
                             fail_date_parsing=parsed,
                             errors_db=errors_,
@@ -351,8 +384,10 @@ async def load_orders(
                             )
 
 
-@app.delete("/recsys/orders/{collection_name}", tags=["Recommender System"])  # HTTP 204: no content
-async def delete_collection_from_orders(collection_name: str):
+@app.post("/delete/orders", tags=["Recommender System"])  # HTTP 204: no content
+async def delete_collection_from_orders(args: Dict):
+    collection_name = args.get("args").get("collection_name_")
+
     try:
         Orders.objects.get(related_collection=collection_name)
         RecommendationCache.objects.get(collection_name=collection_name)
@@ -364,9 +399,11 @@ async def delete_collection_from_orders(collection_name: str):
         return f'There are no records from {collection_name} collection!'
 
 
-@app.get("/recsys/get_user_id/{collection_name}", tags=["Recommender System"],
-         response_model=AvailableUsers)
-async def available_users(collection_name: str):
+@app.post("/recsys/get_user_id", tags=["Recommender System"],
+          response_model=AvailableUsers)
+async def available_users(args: Dict):
+    collection_name = args.get("args").get("collection_name_")
+
     try:
         cache_users = RecommendationCache.objects.filter(collection_name=collection_name)
         users = [i.id for i in cache_users]
@@ -375,12 +412,13 @@ async def available_users(collection_name: str):
         HTTPException(status_code=402, detail=f'There are no user for {collection_name} collection')
 
 
-@app.post("/recsys/{collection_name}/recommend/{user_id}", tags=["Recommender System"],
+@app.post("/recsys/recommend", tags=["Recommender System"],
           response_model=UserRecommendation)  # HTTP 204: no content
-async def recommend_by_user(
-        collection_name: str,
-        user_id: str,
-        k: int = 5):
+async def recommend_by_user(args: Dict):
+    collection_name = args.get("args").get("collection_name_")
+    user_id = args.get("args").get("user_id")
+    k = int(args.get("args").get("max_items_"))
+
     ###############################################################################
     # CHECK ERROR CAUSES WITH DB AND INPUT PARAMETERS
     ##############################################################################
@@ -408,3 +446,5 @@ async def recommend_by_user(
         raise HTTPException(status_code=422, detail="The combination of collection and userID is not correct!")
 
     return UserRecommendation(user_id=user_id, items=_cache_recommendations.recommendations[:k])
+
+
