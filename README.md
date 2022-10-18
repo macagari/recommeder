@@ -1,19 +1,19 @@
 
 
-# IMAGE SIMILARITY ENGINE AND RECOMMENDER ✿
+# IMAGE SIMILARITY ENGINE AND RECOMMENDER 🎨 👗 👛
 
 
 ### Project functionalities
 
  
-✿ CRUDS to handles images transformation in embedding vectors (ResNet, VGG-16 , InceptionV3, Xception
+🐝 CRUDS to handles images transformation in embedding vectors (ResNet, VGG-16 , InceptionV3, Xception
 EfficientNet,BiT)
 
-✿ Search similar images to a given images in input
+⌛ Search similar images to a given images in input
 
-✿ Create a recommender system based on sales data per user
+▓ Create a recommender system based on sales data per user
 
-✿ Recommend items to a given users based on image similarity and collaborative filtering
+👚 Recommend items to a given users based on image similarity and collaborative filtering
 
 ### Custom extensions in loko
 
