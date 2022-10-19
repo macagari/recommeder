@@ -74,7 +74,7 @@ class Arg:
                     on the "i" icon.
                 group (str): The name of the parameter's section. It's used to divide parameters into groups.
                 value: The default value of the parameter.
-                required (bool): Set it to `True` if the parameter is required.
+                required (bool): `True` if the parameter is required. Default: `False`
             """
     def __init__(self, name, type="text", label=None, helper="", description="", group="", value=None, required=False):
         self.name = name
@@ -114,7 +114,7 @@ class Select(Arg):
                     on the "i" icon.
                 group (str): The name of the parameter's section. It's used to divide parameters into groups.
                 value: The default value of the parameter.
-                required (bool): Set it to `True` if the parameter is required.
+                required (bool): `True` if the parameter is required. Default: `False`
                 """
     def __init__(self, name, options, label=None, helper="", description="", group="", value=None, required=False):
         super().__init__(name, "select", label, helper, description, group, value, required)
@@ -149,14 +149,16 @@ class Dynamic(Arg):
                     on the "i" icon.
                 group (str): The name of the parameter's section. It's used to divide parameters into groups.
                 value: The default value of the parameter.
+                required (bool): `True` if the parameter is required. Default: `False`
                 """
-    def __init__(self, name, parent, condition, label=None, dynamicType="text", options=None, helper="", description="",
-                 group="", value=None):
-        super().__init__(name, "dynamic", label, helper, description, group, value)
+    def __init__(self, name, parent, condition, label=None, dynamicType="text", options=None, url=None,
+                 helper="", description="", group="", value=None, required=False):
+        super().__init__(name, "dynamic", label, helper, description, group, value, required)
         self.parent = parent
         self.condition = condition
         self.dynamicType = dynamicType
         self.options = options
+        self.url = url
 
 class MKVField:
     """
@@ -216,7 +218,7 @@ class MultiKeyValue(Arg):
                     on the "i" icon.
                 group (str): The name of the parameter's section. It's used to divide parameters into groups.
                 value: The default value of the parameter.
-                required (bool): Set it to `True` if the parameter is required.
+                required (bool): `True` if the parameter is required. Default: `False`
                 """
 
     def __init__(self, name, fields, label=None, helper="", description="", group="", value=None, required=False):
@@ -252,7 +254,7 @@ class AsyncSelect(Arg):
                     on the "i" icon.
                 group (str): The name of the parameter's section. It's used to divide parameters into groups.
                 value: The default value of the parameter.
-                required (bool): Set it to `True` if the parameter is required.
+                required (bool): `True` if the parameter is required. Default: `False`
                 """
 
     def __init__(self, name, url, label=None, helper="", description="", group="", value=None, required=False):
@@ -274,13 +276,14 @@ class Component:
             inputs (List[Input]): The list of the component's inputs. Default: `[Input("input")]`
             outputs (List[Output]): The list of the component's outputs. Default: `[Output("output")]`
             args (List[Arg]): The list of the component's arguments. Default: `None`
-            configured (bool): Set to `False` if configurations are required. Default: `True`
-            icon (str): The component's icon. Available values are: "RiTyphoonFill", "RiPlayFill", "RiBracketsFill",
-                    "RiCursorFill", "RiEditFill", "RiGitMergeFill", "RiFileCodeFill", "RiHtml5Fill". Default: `"RiTyphoonFill"`
+            trigger (bool): Set to `True` to enable start. Default: `False`
+            configured (bool): `False` if configurations are required. Default: `True`
+            icon (str): The component's icon. Available values: `react-icons/ri <https://react-icons.github.io/react-icons/icons?name=ri>`_.
+                        Default: `"RiCheckboxBlankCircleFill"`
 
         """
-    def __init__(self, name, description="", group="Custom", inputs=None, outputs=None, args=None, start=True,
-                 configured=True, icon="RiPlayFill"):
+    def __init__(self, name, description="", group="Custom", inputs=None, outputs=None, args=None, trigger=False,
+                 configured=True, icon="RiCheckboxBlankCircleFill", events=None):
         self.name = name
         self.description = description
         self.group = group
@@ -288,15 +291,18 @@ class Component:
         self.outputs = outputs or [Output("output")]
         self.args = args or []
         self.icon = icon
-        self.click = "Send message" if start else None
+        self.click = "Send message" if trigger else None
+        self.events = events
 
         self.configured = configured
 
     def to_dict(self):
         values = {x.name: x.value for x in self.args if x.value}
-        options = dict(icon=self.icon, click=self.click, values=values,
-                       args=[x.to_dict() for x in self.args])
-        return dict(name=self.name, description=self.description, group=self.group, configured=self.configured,
+        options = dict(values=values, args=[x.to_dict() for x in self.args])
+        return dict(name=self.name, description=self.description, group=self.group,
+                    icon=self.icon, click=self.click,
+                    events=self.events,
+                    configured=self.configured,
                     inputs=[x.__dict__ for x in self.inputs],
                     outputs=[x.__dict__ for x in self.outputs], options=options)
 
@@ -309,31 +315,3 @@ def save_extensions(comps, path="extensions"):
     output = output_path / "components.json"
     with output.open("w") as o:
         json.dump([comp.to_dict() for comp in comps], o, indent=1)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

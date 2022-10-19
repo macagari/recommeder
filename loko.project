@@ -3,137 +3,10 @@
   "id": "recommender",
   "description": "",
   "created_on": "30/09/2022, 08:59:01",
-  "last_modify": "18/10/2022, 10:27:10",
+  "last_modify": "19/10/2022, 08:54:04",
   "graphs": {
     "main": {
       "nodes": [
-        {
-          "id": "7a8d95ef-724e-4974-90e0-e2c761124dd2",
-          "position": {
-            "x": 530.8902417764773,
-            "y": -67.87268536887643
-          },
-          "type": "custom",
-          "dragHandle": "#nodeHandle",
-          "sourcePosition": "right",
-          "targetPosition": "left",
-          "width": 197,
-          "height": 80,
-          "selected": false,
-          "dragging": false,
-          "data": {
-            "name": "CRUD collections",
-            "events": null,
-            "description": "",
-            "inputs": [
-              {
-                "id": "get_collections",
-                "label": "Get Collections",
-                "service": "collections",
-                "to": "get_collections"
-              },
-              {
-                "id": "create_collection",
-                "label": "Create Collection",
-                "service": "create_collection",
-                "to": "create_collection",
-                "closed": true
-              },
-              {
-                "id": "update_collection",
-                "label": "Update Collection",
-                "service": "update_collection",
-                "to": "update_collection"
-              },
-              {
-                "id": "delete_collection",
-                "label": "Delete Collection",
-                "service": "delete_collection",
-                "to": "delete_collection"
-              }
-            ],
-            "outputs": [
-              {
-                "id": "get_collections",
-                "label": "Get Collections"
-              },
-              {
-                "id": "create_collection",
-                "label": "Create Collection"
-              },
-              {
-                "id": "update_collection",
-                "label": "Update Collection"
-              },
-              {
-                "id": "delete_collection",
-                "label": "Delete Collection"
-              }
-            ],
-            "configured": true,
-            "options": {
-              "group": "Custom",
-              "args": [
-                {
-                  "name": "comment",
-                  "type": "area",
-                  "label": "Node comment",
-                  "helper": "Use it to explain the usage of this node"
-                },
-                {
-                  "name": "alias",
-                  "type": "text",
-                  "label": "Name",
-                  "helper": "Use this name as an alias"
-                },
-                {
-                  "name": "debug",
-                  "type": "boolean",
-                  "label": "Debug to Console",
-                  "divider": true
-                },
-                {
-                  "name": "new_collection_name",
-                  "type": "text",
-                  "label": "New Images Collection Name",
-                  "helper": "Helper text",
-                  "group": "Create Images Collection",
-                  "value": null,
-                  "description": "",
-                  "validation": null
-                },
-                {
-                  "name": "collection_name",
-                  "type": "asyncSelect",
-                  "label": "Images Collection Name",
-                  "helper": "Helper text",
-                  "group": "Select Collection",
-                  "value": null,
-                  "description": "",
-                  "validation": null,
-                  "url": "http://localhost:9999/routes/recommender/collections_"
-                }
-              ],
-              "click": null,
-              "icon": "RiCheckboxBlankCircleFill",
-              "values": {
-                "comment": "",
-                "alias": "fashion collection",
-                "debug": false,
-                "new_collection_name": "chiara_ferragni",
-                "collection_name": ""
-              }
-            },
-            "locked": null
-          },
-          "selectable": true,
-          "draggable": true,
-          "positionAbsolute": {
-            "x": 530.8902417764773,
-            "y": -67.87268536887643
-          },
-          "__class__": "Node"
-        },
         {
           "id": "d2ee1ab3-2823-48ac-b18b-8bae5d470765",
           "position": {
@@ -311,8 +184,8 @@
                 "debug": false,
                 "read_content": false,
                 "value": {
-                  "name": "chiaraferragni.zip",
-                  "path": "data/data/chiaraferragni.zip",
+                  "name": "exampleA.zip",
+                  "path": "data/data/exampleA.zip",
                   "parent": "data/data",
                   "isDir": false,
                   "hidden": false
@@ -330,108 +203,10 @@
           "__class__": "Node"
         },
         {
-          "id": "1ef8444d-c868-410b-a463-22d042c9d9e0",
-          "position": {
-            "x": 1201.6238845612158,
-            "y": 306.230401576501
-          },
-          "type": "custom",
-          "dragHandle": "#nodeHandle",
-          "sourcePosition": "right",
-          "targetPosition": "left",
-          "width": 172,
-          "height": 56,
-          "selected": false,
-          "dragging": false,
-          "data": {
-            "name": "Images Search",
-            "events": null,
-            "description": "",
-            "inputs": [
-              {
-                "id": "input",
-                "label": "Search",
-                "service": "find_similar_images",
-                "to": "item_collection"
-              }
-            ],
-            "outputs": [
-              {
-                "id": "item_collection",
-                "label": "Search"
-              }
-            ],
-            "configured": true,
-            "options": {
-              "group": "Custom",
-              "args": [
-                {
-                  "name": "comment",
-                  "type": "area",
-                  "label": "Node comment",
-                  "helper": "Use it to explain the usage of this node"
-                },
-                {
-                  "name": "alias",
-                  "type": "text",
-                  "label": "Name",
-                  "helper": "Use this name as an alias"
-                },
-                {
-                  "name": "debug",
-                  "type": "boolean",
-                  "label": "Debug to Console",
-                  "divider": true
-                },
-                {
-                  "name": "collection_name",
-                  "type": "asyncSelect",
-                  "label": "Images Collection Name",
-                  "helper": "Helper text",
-                  "group": "Select Collection",
-                  "value": null,
-                  "description": "",
-                  "validation": null,
-                  "url": "http://localhost:9999/routes/recommender/collections_"
-                },
-                {
-                  "name": "max_items",
-                  "type": "text",
-                  "label": "max_items",
-                  "helper": "Maximum similar items to return",
-                  "group": "",
-                  "value": 2,
-                  "description": "",
-                  "validation": {
-                    "required": "Required field"
-                  }
-                }
-              ],
-              "click": null,
-              "icon": "RiCheckboxBlankCircleFill",
-              "values": {
-                "comment": "",
-                "alias": "",
-                "debug": true,
-                "max_items": "2",
-                "collection_name": "chiara_ferragni_partial"
-              }
-            },
-            "locked": null
-          },
-          "selectable": true,
-          "draggable": true,
-          "positionAbsolute": {
-            "x": 1201.6238845612158,
-            "y": 306.230401576501
-          },
-          "__class__": "Node"
-        },
-        {
           "id": "d3946ca8-9ab3-4690-bdec-3270d83ce905",
           "position": {
             "x": 887.2411863230668,
-            "y": 290.1204874767965
+            "y": 289.1204874767965
           },
           "type": "custom",
           "dragHandle": "#nodeHandle",
@@ -525,7 +300,7 @@
           "draggable": true,
           "positionAbsolute": {
             "x": 887.2411863230668,
-            "y": 290.1204874767965
+            "y": 289.1204874767965
           },
           "__class__": "Node"
         },
@@ -632,7 +407,7 @@
           "dragHandle": "#commentHandle",
           "sourcePosition": "right",
           "targetPosition": "left",
-          "width": 620,
+          "width": 872,
           "height": 184,
           "selected": false,
           "dragging": false,
@@ -640,7 +415,7 @@
             "comment": "Search images in a collection",
             "fill": "#F74B65",
             "height": 184,
-            "width": 620
+            "width": 872
           },
           "zIndex": -1,
           "selectable": false,
@@ -781,8 +556,8 @@
         {
           "id": "ca68cf27-ed60-4d65-a7aa-b20abf768b11",
           "position": {
-            "x": -392.7780874284371,
-            "y": 561.5770811127197
+            "x": -409.7425342386624,
+            "y": 560.1633772118676
           },
           "type": "custom",
           "dragHandle": "#nodeHandle",
@@ -867,16 +642,16 @@
           "selectable": true,
           "draggable": true,
           "positionAbsolute": {
-            "x": -392.7780874284371,
-            "y": 561.5770811127197
+            "x": -409.7425342386624,
+            "y": 560.1633772118676
           },
           "__class__": "Node"
         },
         {
           "id": "58053d1b-b80a-4274-8278-fe6c71e488b0",
           "position": {
-            "x": 142.7438866539579,
-            "y": 568.5086917817921
+            "x": 113.05610473606365,
+            "y": 561.4401722775315
           },
           "type": "custom",
           "dragHandle": "#nodeHandle",
@@ -976,16 +751,16 @@
           "selectable": true,
           "draggable": true,
           "positionAbsolute": {
-            "x": 142.7438866539579,
-            "y": 568.5086917817921
+            "x": 113.05610473606365,
+            "y": 561.4401722775315
           },
           "__class__": "Node"
         },
         {
           "id": "bc8eb253-0f48-4602-bc95-6f61251d21bb",
           "position": {
-            "x": 873.2458555355325,
-            "y": -190.5351222193618
+            "x": 862.7734056330729,
+            "y": -195.2953267204798
           },
           "type": "custom",
           "dragHandle": "#nodeHandle",
@@ -1085,16 +860,16 @@
           "selectable": true,
           "draggable": true,
           "positionAbsolute": {
-            "x": 873.2458555355325,
-            "y": -190.5351222193618
+            "x": 862.7734056330729,
+            "y": -195.2953267204798
           },
           "__class__": "Node"
         },
         {
           "id": "6288f748-d083-40c1-9b68-9890da92d67b",
           "position": {
-            "x": 1111.1053666580854,
-            "y": -209
+            "x": 1112.057407558309,
+            "y": -205.1918363991056
           },
           "type": "custom",
           "dragHandle": "#nodeHandle",
@@ -1177,8 +952,8 @@
           "selectable": true,
           "draggable": true,
           "positionAbsolute": {
-            "x": 1111.1053666580854,
-            "y": -209
+            "x": 1112.057407558309,
+            "y": -205.1918363991056
           },
           "__class__": "Node"
         },
@@ -1272,168 +1047,6 @@
           "positionAbsolute": {
             "x": -755.3457830204397,
             "y": 426.26069663772097
-          },
-          "__class__": "Node"
-        },
-        {
-          "id": "dc5820e6-9210-4181-9177-63926d9c2f50",
-          "position": {
-            "x": -120.49824301227099,
-            "y": 316.37102531840964
-          },
-          "type": "custom",
-          "dragHandle": "#nodeHandle",
-          "sourcePosition": "right",
-          "targetPosition": "left",
-          "width": 150,
-          "height": 56,
-          "selected": false,
-          "dragging": false,
-          "data": {
-            "name": "Recommender",
-            "events": null,
-            "description": "",
-            "inputs": [
-              {
-                "id": "input_create_rec",
-                "label": "Create",
-                "service": "recsys/orders",
-                "to": "output_create_rec",
-                "closed": true
-              },
-              {
-                "id": "delete_rec",
-                "label": "Delete",
-                "service": "delete/orders",
-                "to": "output_create_rec"
-              },
-              {
-                "id": "available_users",
-                "label": "Users",
-                "service": "recsys/get_user_id",
-                "to": "available_users_"
-              },
-              {
-                "id": "recommend",
-                "label": "Recommend",
-                "service": "recsys/recommend",
-                "to": "recommend_"
-              }
-            ],
-            "outputs": [
-              {
-                "id": "output_create_rec",
-                "label": "Create"
-              },
-              {
-                "id": "delete_rec",
-                "label": "Delete"
-              },
-              {
-                "id": "available_users_",
-                "label": "Users"
-              },
-              {
-                "id": "recommend_",
-                "label": "Recommend"
-              }
-            ],
-            "configured": true,
-            "options": {
-              "group": "Custom",
-              "args": [
-                {
-                  "name": "comment",
-                  "type": "area",
-                  "label": "Node comment",
-                  "helper": "Use it to explain the usage of this node"
-                },
-                {
-                  "name": "alias",
-                  "type": "text",
-                  "label": "Name",
-                  "helper": "Use this name as an alias"
-                },
-                {
-                  "name": "debug",
-                  "type": "boolean",
-                  "label": "Debug to Console",
-                  "divider": true
-                },
-                {
-                  "name": "collection_name_",
-                  "type": "asyncSelect",
-                  "label": "Images Collection Name",
-                  "helper": "Helper text",
-                  "group": "",
-                  "value": null,
-                  "description": "",
-                  "validation": null,
-                  "url": "http://localhost:9999/routes/recommender/collections_"
-                },
-                {
-                  "name": "months_training",
-                  "type": "text",
-                  "label": "Months Training",
-                  "helper": "Number of months to use for training",
-                  "group": "Create Recommender",
-                  "value": 5,
-                  "description": "",
-                  "validation": null
-                },
-                {
-                  "name": "min_item_allowed",
-                  "type": "text",
-                  "label": "Minimum Item ",
-                  "helper": "The minimum number of items acceptable to create the recommender",
-                  "group": "Create Recommender",
-                  "value": 2,
-                  "description": "",
-                  "validation": null
-                },
-                {
-                  "name": "user_id",
-                  "type": "text",
-                  "label": "User ID",
-                  "helper": "Number of months to use for training",
-                  "group": "Recommend",
-                  "value": null,
-                  "description": "",
-                  "validation": null
-                },
-                {
-                  "name": "max_items_",
-                  "type": "text",
-                  "label": "max items",
-                  "helper": "Maximum similar items to return",
-                  "group": "Recommend",
-                  "value": 5,
-                  "description": "",
-                  "validation": {
-                    "required": "Required field"
-                  }
-                }
-              ],
-              "click": null,
-              "icon": "RiCheckboxBlankCircleFill",
-              "values": {
-                "comment": "",
-                "alias": "",
-                "debug": false,
-                "months_training": "5",
-                "min_item_allowed": "2",
-                "user_id": "63961c5a88e17aa5c6a5b60e34bf0fc7",
-                "max_items_": "5",
-                "collection_name_": "chiara_ferragni"
-              }
-            },
-            "locked": null
-          },
-          "selectable": true,
-          "draggable": true,
-          "positionAbsolute": {
-            "x": -120.49824301227099,
-            "y": 316.37102531840964
           },
           "__class__": "Node"
         },
@@ -1622,8 +1235,8 @@
         {
           "id": "96d1491d-27ac-4873-a6ba-c1fc50111673",
           "position": {
-            "x": 153.87172658996732,
-            "y": 408.60355306125626
+            "x": 145.44594701143347,
+            "y": 410.288708976963
           },
           "type": "custom",
           "dragHandle": "#nodeHandle",
@@ -1723,83 +1336,599 @@
           "selectable": true,
           "draggable": true,
           "positionAbsolute": {
-            "x": 153.87172658996732,
-            "y": 408.60355306125626
+            "x": 145.44594701143347,
+            "y": 410.288708976963
+          },
+          "__class__": "Node"
+        },
+        {
+          "id": "723ff430-03d9-467e-ad0d-27c8b5fa99a4",
+          "position": {
+            "x": 1098.2471534719505,
+            "y": 303.8542294514355
+          },
+          "type": "custom",
+          "dragHandle": "#nodeHandle",
+          "sourcePosition": "right",
+          "targetPosition": "left",
+          "width": 172,
+          "height": 56,
+          "selected": false,
+          "dragging": false,
+          "data": {
+            "name": "Images Search",
+            "events": null,
+            "description": "",
+            "inputs": [
+              {
+                "id": "input",
+                "label": "Search",
+                "service": "find_similar_images",
+                "to": "item_collection"
+              }
+            ],
+            "outputs": [
+              {
+                "id": "item_collection",
+                "label": "Search"
+              }
+            ],
+            "configured": true,
+            "options": {
+              "group": "Custom",
+              "args": [
+                {
+                  "name": "comment",
+                  "type": "area",
+                  "label": "Node comment",
+                  "helper": "Use it to explain the usage of this node"
+                },
+                {
+                  "name": "alias",
+                  "type": "text",
+                  "label": "Name",
+                  "helper": "Use this name as an alias"
+                },
+                {
+                  "name": "debug",
+                  "type": "boolean",
+                  "label": "Debug to Console",
+                  "divider": true
+                },
+                {
+                  "name": "collection_name",
+                  "type": "asyncSelect",
+                  "label": "Images Collection Name",
+                  "helper": "Helper text",
+                  "group": "Select Collection",
+                  "value": null,
+                  "description": "",
+                  "validation": null,
+                  "url": "http://localhost:9999/routes/recommender/collections_"
+                },
+                {
+                  "name": "max_items",
+                  "type": "text",
+                  "label": "max_items",
+                  "helper": "Maximum similar items to return",
+                  "group": "",
+                  "value": 2,
+                  "description": "",
+                  "validation": {
+                    "required": "Required field"
+                  }
+                }
+              ],
+              "click": null,
+              "icon": "RiFileSearchFill",
+              "values": {
+                "comment": "",
+                "alias": "",
+                "debug": false,
+                "max_items": "4",
+                "collection_name": "chiara_ferragni"
+              }
+            },
+            "locked": null
+          },
+          "selectable": true,
+          "draggable": true,
+          "positionAbsolute": {
+            "x": 1098.2471534719505,
+            "y": 303.8542294514355
+          },
+          "__class__": "Node"
+        },
+        {
+          "id": "9e16c36d-c5b8-4156-ae12-79b4fb0bf21c",
+          "position": {
+            "x": 1315,
+            "y": 303
+          },
+          "type": "custom",
+          "dragHandle": "#nodeHandle",
+          "sourcePosition": "right",
+          "targetPosition": "left",
+          "width": 150,
+          "height": 56,
+          "selected": false,
+          "dragging": false,
+          "data": {
+            "name": "Selector",
+            "events": null,
+            "description": "### Description\nThe SELECTOR component is used to select the value of one or more object keys. The required key/s are defined using the parameter **Keys**.\n\nIn order to add other keys you need to click on the **\"Add field\"** button.\n\nIf the field **Ignore Error** is toggled, missing keys are ignored.\n\nIt's also possible to select nested key, just by writing them in a *key* field, and seperating them using a full stop. Let's consider the object in the example below: if you want to have access to the content of the \"key3\" object, you need to use the following notation \"key1.key2.key3\".\n\n\n```json\n {\"key1\":{\"key2\":{\"key3\":[\"val1\", \"val2\", \"val3\"]}}} \n```\n\n\n\n### Input\n\nThe input consists of a dictionary.\n\n\n\n### Output\n\nThe output is the value of the required key of the dictionary received as input, if only one key is selected; otherwise it's an object which contains the keys specified and their value.\n",
+            "inputs": [
+              {
+                "id": "input",
+                "label": "input"
+              }
+            ],
+            "outputs": [
+              {
+                "id": "output",
+                "label": "output"
+              }
+            ],
+            "configured": true,
+            "options": {
+              "group": "Common",
+              "args": [
+                {
+                  "name": "comment",
+                  "type": "area",
+                  "label": "Node comment",
+                  "helper": "Use it to explain the usage of this node"
+                },
+                {
+                  "name": "alias",
+                  "type": "text",
+                  "label": "Name",
+                  "helper": "Use this name as an alias"
+                },
+                {
+                  "name": "debug",
+                  "type": "boolean",
+                  "label": "Debug to Console",
+                  "divider": true
+                },
+                {
+                  "name": "ignore_err",
+                  "label": "Ignor Error",
+                  "type": "boolean",
+                  "description": "Choose whether to ignore error in case of a missing key or not"
+                },
+                {
+                  "name": "exclude",
+                  "label": "Exclude Keys",
+                  "type": "boolean",
+                  "description": "If enabled, the output contains the whole input object excluding the specified keys; otherwise, only the specified keys are returned"
+                },
+                {
+                  "name": "keys",
+                  "label": "Keys",
+                  "type": "multiKeyValue",
+                  "validation": {
+                    "required": "Required field"
+                  },
+                  "description": "Name of the key/s to select from the incoming message",
+                  "fields": [
+                    {
+                      "name": "k",
+                      "placeholder": "key",
+                      "validation": {
+                        "required": "Required field"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "click": null,
+              "icon": "RiCursorFill",
+              "values": {
+                "comment": "",
+                "alias": "",
+                "debug": false,
+                "ignore_err": false,
+                "exclude": false,
+                "keys": [
+                  {
+                    "k": "similar_skus",
+                    "id": "20138c88-4c2a-47e9-8db8-3f2fbe4b992b"
+                  }
+                ]
+              }
+            },
+            "locked": null
+          },
+          "selectable": true,
+          "draggable": true,
+          "positionAbsolute": {
+            "x": 1315,
+            "y": 303
+          },
+          "__class__": "Node"
+        },
+        {
+          "id": "1619e4b8-df38-44ae-a4f7-eb8f4e8d9c58",
+          "position": {
+            "x": 1519,
+            "y": 288
+          },
+          "type": "custom",
+          "dragHandle": "#nodeHandle",
+          "sourcePosition": "right",
+          "targetPosition": "left",
+          "width": 150,
+          "height": 88,
+          "selected": false,
+          "dragging": false,
+          "data": {
+            "name": "Array",
+            "events": null,
+            "description": "### Description\nThe ARRAY component is used as an iterator. The array to iterate over can be defined with the parameter value or depend on the input received.\n\n### Input\nIn case an input is given, it will correspond to the data to iterate on.\n\n### Output\nThe number of outputs depends on the length of what is passed in input or defined in the parameter value. The output will consist of iterating element by element.",
+            "inputs": [
+              {
+                "id": "input",
+                "label": "input"
+              }
+            ],
+            "outputs": [
+              {
+                "id": "output",
+                "label": "output"
+              }
+            ],
+            "configured": true,
+            "options": {
+              "group": "Common",
+              "args": [
+                {
+                  "name": "comment",
+                  "type": "area",
+                  "label": "Node comment",
+                  "helper": "Use it to explain the usage of this node"
+                },
+                {
+                  "name": "alias",
+                  "type": "text",
+                  "label": "Name",
+                  "helper": "Use this name as an alias"
+                },
+                {
+                  "name": "debug",
+                  "type": "boolean",
+                  "label": "Debug to Console",
+                  "divider": true
+                },
+                {
+                  "name": "value",
+                  "type": "text",
+                  "description": "Python or json code that evaluates to a list or iterable",
+                  "label": "value",
+                  "validation": null,
+                  "fragment": null,
+                  "advanced": false,
+                  "options": null,
+                  "value": null
+                },
+                {
+                  "name": "propagate",
+                  "type": "boolean",
+                  "label": "Flush at the end"
+                },
+                {
+                  "name": "flatten",
+                  "type": "boolean",
+                  "label": "Flatten the array recursively"
+                }
+              ],
+              "click": "Send message",
+              "icon": "RiBracketsFill",
+              "values": {
+                "value": "[1,2,3,4,5]",
+                "propagate": true,
+                "flatten": false,
+                "debug": true
+              }
+            }
+          },
+          "selectable": true,
+          "draggable": true,
+          "positionAbsolute": {
+            "x": 1519,
+            "y": 288
+          },
+          "__class__": "Node"
+        },
+        {
+          "id": "7380c0aa-96ac-493b-80a3-78d44f662c20",
+          "position": {
+            "x": 527.0895612925474,
+            "y": -93.6884988300134
+          },
+          "type": "custom",
+          "dragHandle": "#nodeHandle",
+          "sourcePosition": "right",
+          "targetPosition": "left",
+          "width": 197,
+          "height": 80,
+          "selected": false,
+          "dragging": false,
+          "data": {
+            "name": "CRUD collections",
+            "events": null,
+            "description": "",
+            "inputs": [
+              {
+                "id": "get_collections",
+                "label": "Get Collections",
+                "service": "collections",
+                "to": "get_collections"
+              },
+              {
+                "id": "create_collection",
+                "label": "Create Collection",
+                "service": "create_collection",
+                "to": "create_collection"
+              },
+              {
+                "id": "update_collection",
+                "label": "Update Collection",
+                "service": "update_collection",
+                "to": "update_collection"
+              },
+              {
+                "id": "delete_collection",
+                "label": "Delete Collection",
+                "service": "delete_collection",
+                "to": "delete_collection"
+              }
+            ],
+            "outputs": [
+              {
+                "id": "get_collections",
+                "label": "Get Collections"
+              },
+              {
+                "id": "create_collection",
+                "label": "Create Collection"
+              },
+              {
+                "id": "update_collection",
+                "label": "Update Collection"
+              },
+              {
+                "id": "delete_collection",
+                "label": "Delete Collection"
+              }
+            ],
+            "configured": true,
+            "options": {
+              "group": "Custom",
+              "args": [
+                {
+                  "name": "comment",
+                  "type": "area",
+                  "label": "Node comment",
+                  "helper": "Use it to explain the usage of this node"
+                },
+                {
+                  "name": "alias",
+                  "type": "text",
+                  "label": "Name",
+                  "helper": "Use this name as an alias"
+                },
+                {
+                  "name": "debug",
+                  "type": "boolean",
+                  "label": "Debug to Console",
+                  "divider": true
+                },
+                {
+                  "name": "new_collection_name",
+                  "type": "text",
+                  "label": "New Images Collection Name",
+                  "helper": "Helper text",
+                  "group": "Create Images Collection",
+                  "value": null,
+                  "description": "",
+                  "validation": null
+                },
+                {
+                  "name": "collection_name",
+                  "type": "asyncSelect",
+                  "label": "Images Collection Name",
+                  "helper": "Helper text",
+                  "group": "Select Collection",
+                  "value": null,
+                  "description": "",
+                  "validation": null,
+                  "url": "http://localhost:9999/routes/recommender/collections_"
+                }
+              ],
+              "click": null,
+              "icon": "RiBarcodeBoxFill",
+              "values": {
+                "comment": "",
+                "alias": "",
+                "debug": true,
+                "new_collection_name": "test_19_10",
+                "collection_name": "ex_"
+              }
+            },
+            "locked": null
+          },
+          "selectable": true,
+          "draggable": true,
+          "positionAbsolute": {
+            "x": 527.0895612925474,
+            "y": -93.6884988300134
+          },
+          "__class__": "Node"
+        },
+        {
+          "id": "e4325e81-f7b6-4cd8-b504-1eaae3bd9178",
+          "position": {
+            "x": -173.70981982417754,
+            "y": 327.32291292308065
+          },
+          "type": "custom",
+          "dragHandle": "#nodeHandle",
+          "sourcePosition": "right",
+          "targetPosition": "left",
+          "width": 156,
+          "height": 80,
+          "selected": false,
+          "dragging": false,
+          "data": {
+            "name": "Recommender",
+            "events": null,
+            "description": "",
+            "inputs": [
+              {
+                "id": "input_create_rec",
+                "label": "Create",
+                "service": "recsys/orders",
+                "to": "output_create_rec"
+              },
+              {
+                "id": "delete_rec",
+                "label": "Delete",
+                "service": "delete/orders",
+                "to": "output_create_rec"
+              },
+              {
+                "id": "available_users",
+                "label": "Users",
+                "service": "recsys/get_user_id",
+                "to": "available_users_"
+              },
+              {
+                "id": "recommend",
+                "label": "Recommend",
+                "service": "recsys/recommend",
+                "to": "recommend_"
+              }
+            ],
+            "outputs": [
+              {
+                "id": "output_create_rec",
+                "label": "Create"
+              },
+              {
+                "id": "delete_rec",
+                "label": "Delete"
+              },
+              {
+                "id": "available_users_",
+                "label": "Users"
+              },
+              {
+                "id": "recommend_",
+                "label": "Recommend"
+              }
+            ],
+            "configured": true,
+            "options": {
+              "group": "Custom",
+              "args": [
+                {
+                  "name": "comment",
+                  "type": "area",
+                  "label": "Node comment",
+                  "helper": "Use it to explain the usage of this node"
+                },
+                {
+                  "name": "alias",
+                  "type": "text",
+                  "label": "Name",
+                  "helper": "Use this name as an alias"
+                },
+                {
+                  "name": "debug",
+                  "type": "boolean",
+                  "label": "Debug to Console",
+                  "divider": true
+                },
+                {
+                  "name": "collection_name_",
+                  "type": "asyncSelect",
+                  "label": "Images Collection Name",
+                  "helper": "Helper text",
+                  "group": "",
+                  "value": null,
+                  "description": "",
+                  "validation": null,
+                  "url": "http://localhost:9999/routes/recommender/collections_"
+                },
+                {
+                  "name": "months_training",
+                  "type": "text",
+                  "label": "Months Training",
+                  "helper": "Number of months to use for training",
+                  "group": "Create Recommender",
+                  "value": 5,
+                  "description": "",
+                  "validation": null
+                },
+                {
+                  "name": "min_item_allowed",
+                  "type": "text",
+                  "label": "Minimum Item ",
+                  "helper": "The minimum number of items acceptable to create the recommender",
+                  "group": "Create Recommender",
+                  "value": 2,
+                  "description": "",
+                  "validation": null
+                },
+                {
+                  "name": "user_id",
+                  "type": "text",
+                  "label": "User ID",
+                  "helper": "Number of months to use for training",
+                  "group": "Recommend",
+                  "value": null,
+                  "description": "",
+                  "validation": null
+                },
+                {
+                  "name": "max_items_",
+                  "type": "text",
+                  "label": "max items",
+                  "helper": "Maximum similar items to return",
+                  "group": "Recommend",
+                  "value": 5,
+                  "description": "",
+                  "validation": {
+                    "required": "Required field"
+                  }
+                }
+              ],
+              "click": null,
+              "icon": "RiBookmark3Fill",
+              "values": {
+                "comment": "",
+                "alias": "",
+                "debug": false,
+                "months_training": "5",
+                "min_item_allowed": "2",
+                "user_id": "9941c8df1bc34f53bc4d119c60c1864e",
+                "max_items_": "5",
+                "collection_name_": "chiara_ferragni"
+              }
+            },
+            "locked": null
+          },
+          "selectable": true,
+          "draggable": true,
+          "positionAbsolute": {
+            "x": -173.70981982417754,
+            "y": 327.32291292308065
           },
           "__class__": "Node"
         }
       ],
       "edges": [
-        {
-          "id": "reactflow__edge-d2ee1ab3-2823-48ac-b18b-8bae5d470765output-7a8d95ef-724e-4974-90e0-e2c761124dd2get_collections",
-          "source": "d2ee1ab3-2823-48ac-b18b-8bae5d470765",
-          "sourceHandle": "output",
-          "target": "7a8d95ef-724e-4974-90e0-e2c761124dd2",
-          "targetHandle": "get_collections",
-          "data": {
-            "startColor": "#D770AD",
-            "stopColor": "#888"
-          },
-          "selected": false,
-          "dragging": false,
-          "__class__": "Edge"
-        },
-        {
-          "id": "reactflow__edge-f84a8170-3d7f-43d1-97b3-597a494658daoutput-7a8d95ef-724e-4974-90e0-e2c761124dd2create_collection",
-          "source": "f84a8170-3d7f-43d1-97b3-597a494658da",
-          "sourceHandle": "output",
-          "target": "7a8d95ef-724e-4974-90e0-e2c761124dd2",
-          "targetHandle": "create_collection",
-          "data": {
-            "startColor": "#F8637A",
-            "stopColor": "#888"
-          },
-          "selected": false,
-          "dragging": false,
-          "__class__": "Edge"
-        },
-        {
-          "id": "reactflow__edge-d3946ca8-9ab3-4690-bdec-3270d83ce905output-1ef8444d-c868-410b-a463-22d042c9d9e0input",
-          "source": "d3946ca8-9ab3-4690-bdec-3270d83ce905",
-          "sourceHandle": "output",
-          "target": "1ef8444d-c868-410b-a463-22d042c9d9e0",
-          "targetHandle": "input",
-          "data": {
-            "startColor": "#F8637A",
-            "stopColor": "#888"
-          },
-          "selected": false,
-          "dragging": false,
-          "__class__": "Edge"
-        },
-        {
-          "id": "reactflow__edge-ec2665c5-de19-4419-9f5f-c3f48f690a74output-7a8d95ef-724e-4974-90e0-e2c761124dd2delete_collection",
-          "source": "ec2665c5-de19-4419-9f5f-c3f48f690a74",
-          "sourceHandle": "output",
-          "target": "7a8d95ef-724e-4974-90e0-e2c761124dd2",
-          "targetHandle": "delete_collection",
-          "data": {
-            "startColor": "#D770AD",
-            "stopColor": "#888"
-          },
-          "selected": false,
-          "dragging": false,
-          "__class__": "Edge"
-        },
-        {
-          "id": "reactflow__edge-7a8d95ef-724e-4974-90e0-e2c761124dd2get_collections-bc8eb253-0f48-4602-bc95-6f61251d21bbinput",
-          "source": "7a8d95ef-724e-4974-90e0-e2c761124dd2",
-          "sourceHandle": "get_collections",
-          "target": "bc8eb253-0f48-4602-bc95-6f61251d21bb",
-          "targetHandle": "input",
-          "data": {
-            "startColor": "#888",
-            "stopColor": "#D770AD"
-          },
-          "selected": false,
-          "dragging": false,
-          "__class__": "Edge"
-        },
         {
           "id": "reactflow__edge-bc8eb253-0f48-4602-bc95-6f61251d21bboutput-6288f748-d083-40c1-9b68-9890da92d67binput",
           "source": "bc8eb253-0f48-4602-bc95-6f61251d21bb",
@@ -1808,62 +1937,6 @@
           "targetHandle": "input",
           "data": {
             "startColor": "#D770AD",
-            "stopColor": "#D770AD"
-          },
-          "selected": false,
-          "dragging": false,
-          "__class__": "Edge"
-        },
-        {
-          "id": "reactflow__edge-32cb6fa3-491c-42d6-a91d-c3cfe46f5ee5output-dc5820e6-9210-4181-9177-63926d9c2f50available_users",
-          "source": "32cb6fa3-491c-42d6-a91d-c3cfe46f5ee5",
-          "sourceHandle": "output",
-          "target": "dc5820e6-9210-4181-9177-63926d9c2f50",
-          "targetHandle": "available_users",
-          "data": {
-            "startColor": "#D770AD",
-            "stopColor": "#888"
-          },
-          "selected": false,
-          "dragging": false,
-          "__class__": "Edge"
-        },
-        {
-          "id": "reactflow__edge-ca68cf27-ed60-4d65-a7aa-b20abf768b11output-dc5820e6-9210-4181-9177-63926d9c2f50recommend",
-          "source": "ca68cf27-ed60-4d65-a7aa-b20abf768b11",
-          "sourceHandle": "output",
-          "target": "dc5820e6-9210-4181-9177-63926d9c2f50",
-          "targetHandle": "recommend",
-          "data": {
-            "startColor": "#D770AD",
-            "stopColor": "#888"
-          },
-          "selected": false,
-          "dragging": false,
-          "__class__": "Edge"
-        },
-        {
-          "id": "reactflow__edge-11b28941-0773-42a9-8e0e-1e8b655a6dcdoutput-dc5820e6-9210-4181-9177-63926d9c2f50input_create_rec",
-          "source": "11b28941-0773-42a9-8e0e-1e8b655a6dcd",
-          "sourceHandle": "output",
-          "target": "dc5820e6-9210-4181-9177-63926d9c2f50",
-          "targetHandle": "input_create_rec",
-          "data": {
-            "startColor": "#F8637A",
-            "stopColor": "#888"
-          },
-          "selected": false,
-          "dragging": false,
-          "__class__": "Edge"
-        },
-        {
-          "id": "reactflow__edge-dc5820e6-9210-4181-9177-63926d9c2f50recommend_-58053d1b-b80a-4274-8278-fe6c71e488b0input",
-          "source": "dc5820e6-9210-4181-9177-63926d9c2f50",
-          "sourceHandle": "recommend_",
-          "target": "58053d1b-b80a-4274-8278-fe6c71e488b0",
-          "targetHandle": "input",
-          "data": {
-            "startColor": "#888",
             "stopColor": "#D770AD"
           },
           "selected": false,
@@ -1885,20 +1958,6 @@
           "__class__": "Edge"
         },
         {
-          "id": "reactflow__edge-dc5820e6-9210-4181-9177-63926d9c2f50available_users_-96d1491d-27ac-4873-a6ba-c1fc50111673input",
-          "source": "dc5820e6-9210-4181-9177-63926d9c2f50",
-          "sourceHandle": "available_users_",
-          "target": "96d1491d-27ac-4873-a6ba-c1fc50111673",
-          "targetHandle": "input",
-          "data": {
-            "startColor": "#888",
-            "stopColor": "#D770AD"
-          },
-          "selected": false,
-          "dragging": false,
-          "__class__": "Edge"
-        },
-        {
           "id": "reactflow__edge-96d1491d-27ac-4873-a6ba-c1fc50111673output-a21ce534-b8d6-4d26-8766-4887c8130f2cinput",
           "source": "96d1491d-27ac-4873-a6ba-c1fc50111673",
           "sourceHandle": "output",
@@ -1911,8 +1970,181 @@
           "selected": false,
           "dragging": false,
           "__class__": "Edge"
+        },
+        {
+          "id": "reactflow__edge-d3946ca8-9ab3-4690-bdec-3270d83ce905output-723ff430-03d9-467e-ad0d-27c8b5fa99a4input",
+          "source": "d3946ca8-9ab3-4690-bdec-3270d83ce905",
+          "sourceHandle": "output",
+          "target": "723ff430-03d9-467e-ad0d-27c8b5fa99a4",
+          "targetHandle": "input",
+          "data": {
+            "startColor": "#F8637A",
+            "stopColor": "#888"
+          },
+          "selected": false,
+          "dragging": false,
+          "__class__": "Edge"
+        },
+        {
+          "id": "reactflow__edge-723ff430-03d9-467e-ad0d-27c8b5fa99a4item_collection-9e16c36d-c5b8-4156-ae12-79b4fb0bf21cinput",
+          "source": "723ff430-03d9-467e-ad0d-27c8b5fa99a4",
+          "sourceHandle": "item_collection",
+          "target": "9e16c36d-c5b8-4156-ae12-79b4fb0bf21c",
+          "targetHandle": "input",
+          "data": {
+            "startColor": "#888",
+            "stopColor": "#D770AD"
+          },
+          "selected": false,
+          "dragging": false,
+          "__class__": "Edge"
+        },
+        {
+          "id": "reactflow__edge-9e16c36d-c5b8-4156-ae12-79b4fb0bf21coutput-1619e4b8-df38-44ae-a4f7-eb8f4e8d9c58input",
+          "source": "9e16c36d-c5b8-4156-ae12-79b4fb0bf21c",
+          "sourceHandle": "output",
+          "target": "1619e4b8-df38-44ae-a4f7-eb8f4e8d9c58",
+          "targetHandle": "input",
+          "data": {
+            "startColor": "#D770AD",
+            "stopColor": "#D770AD"
+          },
+          "selected": false,
+          "dragging": false,
+          "__class__": "Edge"
+        },
+        {
+          "id": "reactflow__edge-d2ee1ab3-2823-48ac-b18b-8bae5d470765output-7380c0aa-96ac-493b-80a3-78d44f662c20get_collections",
+          "source": "d2ee1ab3-2823-48ac-b18b-8bae5d470765",
+          "sourceHandle": "output",
+          "target": "7380c0aa-96ac-493b-80a3-78d44f662c20",
+          "targetHandle": "get_collections",
+          "data": {
+            "startColor": "#D770AD",
+            "stopColor": "#888"
+          },
+          "selected": false,
+          "dragging": false,
+          "__class__": "Edge"
+        },
+        {
+          "id": "reactflow__edge-7380c0aa-96ac-493b-80a3-78d44f662c20get_collections-bc8eb253-0f48-4602-bc95-6f61251d21bbinput",
+          "source": "7380c0aa-96ac-493b-80a3-78d44f662c20",
+          "sourceHandle": "get_collections",
+          "target": "bc8eb253-0f48-4602-bc95-6f61251d21bb",
+          "targetHandle": "input",
+          "data": {
+            "startColor": "#888",
+            "stopColor": "#D770AD"
+          },
+          "selected": false,
+          "dragging": false,
+          "__class__": "Edge"
+        },
+        {
+          "id": "reactflow__edge-f84a8170-3d7f-43d1-97b3-597a494658daoutput-7380c0aa-96ac-493b-80a3-78d44f662c20create_collection",
+          "source": "f84a8170-3d7f-43d1-97b3-597a494658da",
+          "sourceHandle": "output",
+          "target": "7380c0aa-96ac-493b-80a3-78d44f662c20",
+          "targetHandle": "create_collection",
+          "data": {
+            "startColor": "#F8637A",
+            "stopColor": "#888"
+          },
+          "selected": false,
+          "dragging": false,
+          "__class__": "Edge"
+        },
+        {
+          "id": "reactflow__edge-ec2665c5-de19-4419-9f5f-c3f48f690a74output-7380c0aa-96ac-493b-80a3-78d44f662c20delete_collection",
+          "source": "ec2665c5-de19-4419-9f5f-c3f48f690a74",
+          "sourceHandle": "output",
+          "target": "7380c0aa-96ac-493b-80a3-78d44f662c20",
+          "targetHandle": "delete_collection",
+          "data": {
+            "startColor": "#D770AD",
+            "stopColor": "#888"
+          },
+          "selected": false,
+          "dragging": false,
+          "__class__": "Edge"
+        },
+        {
+          "id": "reactflow__edge-11b28941-0773-42a9-8e0e-1e8b655a6dcdoutput-e4325e81-f7b6-4cd8-b504-1eaae3bd9178input_create_rec",
+          "source": "11b28941-0773-42a9-8e0e-1e8b655a6dcd",
+          "sourceHandle": "output",
+          "target": "e4325e81-f7b6-4cd8-b504-1eaae3bd9178",
+          "targetHandle": "input_create_rec",
+          "data": {
+            "startColor": "#F8637A",
+            "stopColor": "#888"
+          },
+          "selected": false,
+          "dragging": false,
+          "__class__": "Edge"
+        },
+        {
+          "id": "reactflow__edge-32cb6fa3-491c-42d6-a91d-c3cfe46f5ee5output-e4325e81-f7b6-4cd8-b504-1eaae3bd9178available_users",
+          "source": "32cb6fa3-491c-42d6-a91d-c3cfe46f5ee5",
+          "sourceHandle": "output",
+          "target": "e4325e81-f7b6-4cd8-b504-1eaae3bd9178",
+          "targetHandle": "available_users",
+          "data": {
+            "startColor": "#D770AD",
+            "stopColor": "#888"
+          },
+          "selected": false,
+          "dragging": false,
+          "__class__": "Edge"
+        },
+        {
+          "id": "reactflow__edge-e4325e81-f7b6-4cd8-b504-1eaae3bd9178available_users_-96d1491d-27ac-4873-a6ba-c1fc50111673input",
+          "source": "e4325e81-f7b6-4cd8-b504-1eaae3bd9178",
+          "sourceHandle": "available_users_",
+          "target": "96d1491d-27ac-4873-a6ba-c1fc50111673",
+          "targetHandle": "input",
+          "data": {
+            "startColor": "#888",
+            "stopColor": "#D770AD"
+          },
+          "selected": false,
+          "dragging": false,
+          "__class__": "Edge"
+        },
+        {
+          "id": "reactflow__edge-ca68cf27-ed60-4d65-a7aa-b20abf768b11output-e4325e81-f7b6-4cd8-b504-1eaae3bd9178recommend",
+          "source": "ca68cf27-ed60-4d65-a7aa-b20abf768b11",
+          "sourceHandle": "output",
+          "target": "e4325e81-f7b6-4cd8-b504-1eaae3bd9178",
+          "targetHandle": "recommend",
+          "data": {
+            "startColor": "#D770AD",
+            "stopColor": "#888"
+          },
+          "selected": false,
+          "dragging": false,
+          "__class__": "Edge"
+        },
+        {
+          "id": "reactflow__edge-e4325e81-f7b6-4cd8-b504-1eaae3bd9178recommend_-58053d1b-b80a-4274-8278-fe6c71e488b0input",
+          "source": "e4325e81-f7b6-4cd8-b504-1eaae3bd9178",
+          "sourceHandle": "recommend_",
+          "target": "58053d1b-b80a-4274-8278-fe6c71e488b0",
+          "targetHandle": "input",
+          "data": {
+            "startColor": "#888",
+            "stopColor": "#D770AD"
+          },
+          "selected": false,
+          "dragging": false,
+          "__class__": "Edge"
         }
       ],
+      "__class__": "Graph"
+    },
+    "use_case": {
+      "nodes": [],
+      "edges": [],
       "__class__": "Graph"
     }
   },

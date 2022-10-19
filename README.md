@@ -92,7 +92,7 @@ docker-compose up
 ```
 2) Go to http://0.0.0.0/docs to check the swagger _(if you are on Windows go to http://localhost/docs)
 
-## Results integrated 
+## Integrated Results  
 
 ![Similarity_Results1](images/results1.png)
 ![Similarity_Results2](images/result2.png)

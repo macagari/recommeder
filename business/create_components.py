@@ -47,7 +47,8 @@ delete_collection_ = Output(id='delete_collection', label='Delete Collection')
 comp_cruds = Component(name="CRUD collections",
                        args=[new_collection_name, collection_name],
                        inputs=[get_collections, create_collection, update_collection, delete_collection],
-                       outputs=[get_collections_, create_collection_, update_collection_, delete_collection_]
+                       outputs=[get_collections_, create_collection_, update_collection_, delete_collection_],
+                       icon='RiBarcodeBoxFill'
                        )
 ######################### SEARCH COMPONENT ###############################
 
@@ -70,7 +71,9 @@ search_engine = Component(name="Images Search",
                           args=[collection_name, max_items],
                           inputs=[search],
                           outputs=[search_],
-                          configured=False)
+                          configured=False,
+                          icon='RiFileSearchFill'
+                          )
 
 #######################################################
 
@@ -143,12 +146,15 @@ max_items_ = Arg(name="max_items_",
                  value=5,
                  group="Recommend",
                  )
+
+
 recommender = Component(name="Recommender",
                         args=[collection_name_, months_training, min_item_allowed, user_id, max_items_],
                         inputs=[create_rec, delete_rec, available_users, recommend],
                         outputs=[create_rec_, delete_rec_, available_users_, recommend_],
                         configured=False,
-                        trigger=True)
+                        icon='RiBookmark3Fill'
+                        )
 
 #########################################################
 

@@ -3,7 +3,7 @@
   "name": "CRUD collections",
   "description": "",
   "group": "Custom",
-  "icon": "RiCheckboxBlankCircleFill",
+  "icon": "RiBarcodeBoxFill",
   "click": null,
   "configured": true,
   "inputs": [
@@ -81,7 +81,7 @@
   "name": "Images Search",
   "description": "",
   "group": "Custom",
-  "icon": "RiCheckboxBlankCircleFill",
+  "icon": "RiFileSearchFill",
   "click": null,
   "configured": false,
   "inputs": [
@@ -133,7 +133,7 @@
   "name": "Recommender",
   "description": "",
   "group": "Custom",
-  "icon": "RiCheckboxBlankCircleFill",
+  "icon": "RiBookmark3Fill",
   "click": null,
   "configured": false,
   "inputs": [
